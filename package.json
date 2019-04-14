@@ -39,8 +39,10 @@
     "webpack-dev-server": "2.5.1"
   },
   "dependencies": {
+    "joi-browser": "^13.4.0",
     "prop-types": "15.5.10",
     "react": "15.4.2",
-    "react-dom": "15.4.2"
+    "react-dom": "15.4.2",
+    "react-pure-lifecycle": "^3.0.0"
   }
 }

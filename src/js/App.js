@@ -1,3 +1,4 @@
+import $ from 'jquery'
 import React from 'react';
 import data from './data/Data';
 import Content from "./Content";
@@ -28,6 +29,18 @@ class App extends React.Component {
             theFinalResult:null
         }
 
+    }
+
+    componentDidMount() {
+        this.onWindowHeightResize();
+        window.onresize = (event) => {
+            this.onWindowHeightResize();
+        }
+    }
+
+    onWindowHeightResize = () => {
+        let viewportHeight = $(window).height();
+        $('.KV').css('height', viewportHeight);
     }
 
     onSelectAnswer = (answer) => {
@@ -157,7 +170,7 @@ class App extends React.Component {
         }, 1000)
 
     }
-    
+
     compareWhoIsScoreHigher = () => {
         const {c1,c2,c3,c4}=this.state
         let scoreArray = [{name:'c1',val:c1},{name:'c2',val:c2},{name:'c3',val:c3},{name:'c4',val:c4}]

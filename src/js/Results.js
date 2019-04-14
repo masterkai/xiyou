@@ -49,7 +49,7 @@ const Results = ({loadNewQuestion, allAnswers, allQuestions, onLoadResults, onRe
                 {resultsLoaded ? <button className="btn btn-dark" onClick={(e) => {
                         onRestart();
                     }}>再玩一次</button>
-                    : <button className="btn btn-dark" onClick={(e) => {
+                    : <button disabled={true} className="btn btn-dark" onClick={(e) => {
                         onLoadResults();
                     }}>點我看解析</button>
                 }

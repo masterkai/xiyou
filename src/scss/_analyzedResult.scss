@@ -1,0 +1,26 @@
+.analyzedResult {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .analysis {
+    line-height: 1.65;
+    font-size: 1.5875rem;
+    text-align: left;
+  }
+}
+
+@media (min-width: 768px) {
+  .analyzedResult {
+    .analysis {
+      line-height: 2;
+      font-size: 1.875rem;
+    }
+  }
+}
