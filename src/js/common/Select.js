@@ -1,15 +1,4 @@
-import React from 'react';
-import lifecycle from 'react-pure-lifecycle';
-import $ from 'jquery'
-import {default_city_no, city_change, seq_city_change, seq_city_no} from '../../services/validate'
-
-const methods = {
-  componentDidMount(props) {
-    console.log('I mounted! Here are my props: ', props);
-
-  }
-};
-
+import React, {Component} from 'react';
 
 function Select(props) {
   return (
@@ -24,4 +13,4 @@ function Select(props) {
   );
 }
 
-export default lifecycle(methods)(Select);
+export default Select;

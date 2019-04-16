@@ -11,6 +11,7 @@
 *~
 *.sass-cache
 node_modules/
+dist
 .tmp/
 
 # OS or Editor folders

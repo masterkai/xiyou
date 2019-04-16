@@ -1,5 +1,6 @@
 @import "./form";
 @import "./analyzedResult";
+@import "./KV";
 
 $transition-easing: cubic-bezier(0.455, 0.030, 0.515, 0.955);
 $darkTextColor: #4b4668;
@@ -40,23 +41,7 @@ header {
   }
 }
 
-.KV {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url(https://www.pcschool.com.tw/activity/108/xiyou/images/clouds_pattern.svg), url(https://www.pcschool.com.tw/activity/108/xiyou/images/bg.svg);
-  animation: slide 20s linear infinite;
-  background-repeat: repeat, repeat-x;
-  background-position: 0 0, center top;
-  background-size: cover;
 
-  img {
-    cursor: pointer;
-    max-width: 100%;
-    max-height: 920px;
-    flex: 1 1 100%;
-  }
-}
 
 .content {
   background-color: #fff;

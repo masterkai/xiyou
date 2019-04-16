@@ -1,5 +1,6 @@
-// import $ from 'jquery'
-
+import $ from 'jquery'
+import axios from 'axios'
+//測試用假資料 https://api.myjson.com/bins/1h0le4
 //表單共用檢查 name mobile cityno townno per_chk
 export function checkinfo(JSonData) {
   if (JSonData.name === "" || ischinese(JSonData.name) === false) {
@@ -47,7 +48,7 @@ export function goSubmit(JSonData, func1, func2) {
   JSonData.rec_id = QueryString("ycmp");
   $.ajax({
     type: "post",
-    url: "https://www.pcschool.com.tw/wguest/func.aspx",
+    url: "/wGuest/func.aspx",
     data: JSonData,
     dataType: 'jsonp',             // xml/json/script/html
     cache: false,                   // 是否允許快取
@@ -110,27 +111,30 @@ export function GetUsingURL() {
   url = url === "" ? document.location.href : url;
   return url;
 }
-
+let dept = "";
+let seq_no = "G001";
+let web_pno = "10803B100005";
 let cityno;
-let deptno;
+let deptno = null;
 
 
 export function default_city_no() {
   let dJSonData = {
     "func": "ruxmslnlnjonr",
-    // "dept": dept,
-    // "seq_no": seq_no,
-    // "web_pno": web_pno
+    "dept": dept,
+    "seq_no": seq_no,
+    "web_pno": web_pno
   }
+
   $.ajax({
-    type: "post",
-    url: "https://www.pcschool.com.tw/wguest/func.aspx",
+    type: "get",
+    url: "https://api.myjson.com/bins/1h0le4",
     data: dJSonData,
-    dataType: 'jsonp',             // xml/json/script/html
-    cache: false,                   // 是否允許快取
+    cache: false,
     success: function (response) {
       cityno = response[0].tCity.split(';');
       deptno = eval(response[0].tArea)[0];
+      console.log(deptno);
       $('#ddl_city_no').html("");
       $('#ddl_city_no').append('<option value="">選擇縣市</option>');
       for (let i = 0; i < cityno.length; i++) {
@@ -143,16 +147,11 @@ export function default_city_no() {
       $('#ddl_area_no').attr('disabled', false);
       let msg = response[1].ShowMsg;
       let url = response[1].ShowURL;
-      /*
-      $(window).bind("beforeunload", function () {
-          return popUpSet(msg, url);
-      });
-      */
     },
     error: function (xhr, ajaxOptions, thrownError) {
-      alert(xhr.responseText);
+      alert(`error: ${xhr.responseText} : ${thrownError}`);
     },
-    beforeSend: function (xhr) {     // 設定 RequestHeader
+    beforeSend: function (xhr) {
       xhr.setRequestHeader("Accept", "text/javascript");
     }
   });
@@ -161,7 +160,7 @@ export function default_city_no() {
 export function city_change() {
   $('#ddl_area_no').html("");
   let k = $('#ddl_city_no :selected').val();
-  if (k != "") {
+  if (k !== "") {
     let dept = deptno["A" + k].split(';');
     $('#ddl_area_no').append('<option value="">選擇區鄉鎮</option>');
     for (let i = 0; i < dept.length; i++) {
@@ -184,8 +183,8 @@ export function seq_city_no() {
   }
   $.ajax({
     type: "post",
-    url: "https://www.pcschool.com.tw/wguest/func.aspx",
-    data: dJSonData,
+    url: "/wGuest/func.aspx",
+    // data: dJSonData,
     dataType: 'jsonp',             // xml/json/script/html
     cache: false,                   // 是否允許快取
     success: function (response) {
@@ -221,7 +220,7 @@ export function seq_city_no() {
 export function seq_city_change() {
   $('#ddl_area_no').html("");
   let k = $('#ddl_city_no :selected').val();
-  if (k != "") {
+  if (k !== "") {
     let dept = deptno["A" + k].split(';');
     $('#ddl_area_no').append('<option value="">選擇分校</option>');
     for (let i = 0; i < dept.length; i++) {
@@ -297,39 +296,58 @@ export function s(data) {
     $("#name").val("");
     $("#mobile").val("");
     alert('送出成功！');
-    $("#sBut").show();
-    document.location.href = "/wGuest/loadover.htm";
+    // $("#sBut").show();
+    // document.location.href = "/wGuest/loadover.htm";
+    doConversion()
 
 
   } else {
     alert('送出失敗！');
     console.log(data);
-    $("#sBut").show();
+    // $("#sBut").show();
   }
 }
 
 export function f(data) {
   alert(data);
-  $("#sBut").show();
+  // $("#sBut").show();
+}
+
+export function doConversion(p) {
+  // Google
+  window.dataLayer=window.dataLayer||[];
+  function gtag() { dataLayer.push(arguments); }
+
+  gtag('event','conversion',{
+    'send_to': 'AW-1066746510/KzPbCPTsjAEQjoXV_AM',
+    'value': 5.0,
+    'currency': 'TWD'
+  });
+
+  // Line
+  _lt('send','cv',{
+    type: 'Conversion'
+  },['dc3ee8c6-2e89-4252-8676-d5b5340822b4']);
+
 }
 
 $(function () {
-  if (typeof (seq_School) === "undefined") {
-    default_city_no();
-
-    $('#ddl_city_no').change(function () {
-      city_change();
-    });
-  } else if (seq_School === "Y") {
-    seq_city_no();
-    $('#ddl_city_no').change(function () {
-      seq_city_change();
-    });
-  } else {
-    default_city_no();
-    $('#ddl_city_no').change(function () {
-      city_change();
-    });
-  }
+  // if (typeof (seq_School) === "undefined") {
+  //   default_city_no();
+  //
+  //   $('#ddl_city_no').change(function () {
+  //     city_change();
+  //   });
+  // } else if (seq_School === "Y") {
+  //   seq_city_no();
+  //   $('#ddl_city_no').change(function () {
+  //     seq_city_change();
+  //   });
+  // } else {
+  //   default_city_no();
+  //   $('#ddl_city_no').change(function () {
+  //     city_change();
+  //   });
+  // }
   //se();
 });
